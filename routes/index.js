@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
+/* GET 404 status. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.status(404).json({ message: 'Что-то пошло не так =(' });
 });
 
 module.exports = router;

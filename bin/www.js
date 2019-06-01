@@ -85,5 +85,5 @@ function onListening() {
 
 if (module.hot) {
   module.hot.accept();
-  module.hot.dispose(() => app.close());
+  module.hot.dispose(() => server.close());
 }

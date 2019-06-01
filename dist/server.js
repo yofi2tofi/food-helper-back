@@ -22,7 +22,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "8762746dd7752212e1b7";
+/******/ 	var hotCurrentHash = "800b882a84e9dafaa1dd";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -759,7 +759,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("/* WEBPACK VAR INJECTION */(function(__dirname) {const express = __webpack_require__(/*! express */ \"express\");\nconst path = __webpack_require__(/*! path */ \"path\");\nconst cookieParser = __webpack_require__(/*! cookie-parser */ \"cookie-parser\");\nconst logger = __webpack_require__(/*! morgan */ \"morgan\");\nconst compression = __webpack_require__(/*! compression */ \"compression\");\nconst swaggerUi = __webpack_require__(/*! swagger-ui-express */ \"swagger-ui-express\");\n\nconst swaggerDocument = __webpack_require__(/*! ./swagger.json */ \"./swagger.json\");\n\nconst indexRouter = __webpack_require__(/*! ./routes/index */ \"./routes/index.js\");\nconst usersRouter = __webpack_require__(/*! ./routes/users */ \"./routes/users.js\");\nconst authRouter = __webpack_require__(/*! ./routes/auth */ \"./routes/auth.js\");\n\nconst app = express();\n\napp.use(logger('dev'));\napp.use(express.json());\napp.use(express.urlencoded({ extended: false }));\napp.use(cookieParser());\napp.use(express.static(path.join(__dirname, 'public')));\napp.use(compression());\n\napp.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));\n\napp.use('api/v1/auth', authRouter);\napp.use('api/v1/users', usersRouter);\napp.use('*', indexRouter);\n\nmodule.exports = app;\n\n/* WEBPACK VAR INJECTION */}.call(this, \"/\"))\n\n//# sourceURL=webpack:///./app.js?");
+eval("/* WEBPACK VAR INJECTION */(function(__dirname) {const express = __webpack_require__(/*! express */ \"express\");\nconst path = __webpack_require__(/*! path */ \"path\");\nconst cookieParser = __webpack_require__(/*! cookie-parser */ \"cookie-parser\");\nconst logger = __webpack_require__(/*! morgan */ \"morgan\");\nconst compression = __webpack_require__(/*! compression */ \"compression\");\nconst swaggerUi = __webpack_require__(/*! swagger-ui-express */ \"swagger-ui-express\");\nconst passport = __webpack_require__(/*! passport */ \"passport\");\n\nconst swaggerDocument = __webpack_require__(/*! ./swagger.json */ \"./swagger.json\");\n\nconst indexRouter = __webpack_require__(/*! ./routes/index */ \"./routes/index.js\");\nconst usersRouter = __webpack_require__(/*! ./routes/users */ \"./routes/users.js\");\nconst authRouter = __webpack_require__(/*! ./routes/auth */ \"./routes/auth.js\");\n\nconst authenticate = __webpack_require__(/*! ./middlewares/authenticate */ \"./middlewares/authenticate.js\");\n\nconst app = express();\n\n__webpack_require__(/*! ./passport/local */ \"./passport/local.js\");\n\n__webpack_require__(/*! ./validationSchemas/validation.module */ \"./validationSchemas/validation.module.js\");\n\napp.use(logger('dev'));\napp.use(express.json());\napp.use(express.urlencoded({ extended: false }));\napp.use(cookieParser());\napp.use(express.static(path.join(__dirname, 'public')));\napp.use(compression());\napp.use(passport.initialize());\n\napp.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));\n\napp.use('/api/v1/auth', authRouter);\napp.use('/api/v1/users', authenticate(), usersRouter);\napp.use('*', indexRouter);\n\nmodule.exports = app;\n\n/* WEBPACK VAR INJECTION */}.call(this, \"/\"))\n\n//# sourceURL=webpack:///./app.js?");
 
 /***/ }),
 
@@ -770,7 +770,7 @@ eval("/* WEBPACK VAR INJECTION */(function(__dirname) {const express = __webpack
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("/**\n * Module dependencies.\n */\n\nvar app = __webpack_require__(/*! ../app */ \"./app.js\");\nvar debug = __webpack_require__(/*! debug */ \"debug\")('foodhelperback:server');\nvar http = __webpack_require__(/*! http */ \"http\");\n\n/**\n * Get port from environment and store in Express.\n */\n\nvar port = normalizePort(process.env.PORT || '3000');\napp.set('port', port);\n\n/**\n * Create HTTP server.\n */\n\nvar server = http.createServer(app);\n\n/**\n * Listen on provided port, on all network interfaces.\n */\n\nserver.listen(port);\nserver.on('error', onError);\nserver.on('listening', onListening);\n\n/**\n * Normalize a port into a number, string, or false.\n */\n\nfunction normalizePort(val) {\n  var port = parseInt(val, 10);\n\n  if (isNaN(port)) {\n    // named pipe\n    return val;\n  }\n\n  if (port >= 0) {\n    // port number\n    return port;\n  }\n\n  return false;\n}\n\n/**\n * Event listener for HTTP server \"error\" event.\n */\n\nfunction onError(error) {\n  if (error.syscall !== 'listen') {\n    throw error;\n  }\n\n  var bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;\n\n  // handle specific listen errors with friendly messages\n  switch (error.code) {\n    case 'EACCES':\n      console.error(bind + ' requires elevated privileges');\n      process.exit(1);\n      break;\n    case 'EADDRINUSE':\n      console.error(bind + ' is already in use');\n      process.exit(1);\n      break;\n    default:\n      throw error;\n  }\n}\n\n/**\n * Event listener for HTTP server \"listening\" event.\n */\n\nfunction onListening() {\n  var addr = server.address();\n  var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;\n  debug('Listening on ' + bind);\n}\n\nif (true) {\n  module.hot.accept();\n  module.hot.dispose(() => app.close());\n}\n\n\n//# sourceURL=webpack:///./bin/www.js?");
+eval("/**\n * Module dependencies.\n */\n\nvar app = __webpack_require__(/*! ../app */ \"./app.js\");\nvar debug = __webpack_require__(/*! debug */ \"debug\")('foodhelperback:server');\nvar http = __webpack_require__(/*! http */ \"http\");\n\n/**\n * Get port from environment and store in Express.\n */\n\nvar port = normalizePort(process.env.PORT || '3000');\napp.set('port', port);\n\n/**\n * Create HTTP server.\n */\n\nvar server = http.createServer(app);\n\n/**\n * Listen on provided port, on all network interfaces.\n */\n\nserver.listen(port);\nserver.on('error', onError);\nserver.on('listening', onListening);\n\n/**\n * Normalize a port into a number, string, or false.\n */\n\nfunction normalizePort(val) {\n  var port = parseInt(val, 10);\n\n  if (isNaN(port)) {\n    // named pipe\n    return val;\n  }\n\n  if (port >= 0) {\n    // port number\n    return port;\n  }\n\n  return false;\n}\n\n/**\n * Event listener for HTTP server \"error\" event.\n */\n\nfunction onError(error) {\n  if (error.syscall !== 'listen') {\n    throw error;\n  }\n\n  var bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;\n\n  // handle specific listen errors with friendly messages\n  switch (error.code) {\n    case 'EACCES':\n      console.error(bind + ' requires elevated privileges');\n      process.exit(1);\n      break;\n    case 'EADDRINUSE':\n      console.error(bind + ' is already in use');\n      process.exit(1);\n      break;\n    default:\n      throw error;\n  }\n}\n\n/**\n * Event listener for HTTP server \"listening\" event.\n */\n\nfunction onListening() {\n  var addr = server.address();\n  var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;\n  debug('Listening on ' + bind);\n}\n\nif (true) {\n  module.hot.accept();\n  module.hot.dispose(() => server.close());\n}\n\n\n//# sourceURL=webpack:///./bin/www.js?");
 
 /***/ }),
 
@@ -792,7 +792,29 @@ eval("const mongoose = __webpack_require__(/*! mongoose */ \"mongoose\");\n\ncon
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const Schema = __webpack_require__(/*! mongoose */ \"mongoose\").Schema;\n\nconst User = new Schema({\n  id: Number\n});\n\nmodule.exports = User;\n\n\n//# sourceURL=webpack:///./db/schemas/user.schema.js?");
+eval("const mongoose = __webpack_require__(/*! mongoose */ \"mongoose\");\nconst crypto = __webpack_require__(/*! crypto */ \"crypto\");\nconst jwt = __webpack_require__(/*! jsonwebtoken */ \"jsonwebtoken\");\nconst Schema = __webpack_require__(/*! mongoose */ \"mongoose\").Schema;\n\nconst User = new Schema({\n  method: String,\n  roles: {\n    type: String,\n    enum: ['user', 'admin']\n  },\n  local: {\n    username: { type: String, unique: true },\n    salt: String,\n    hashedPassword: String\n  },\n  hash: String,\n  salt: String,\n  refreshToken: String\n});\n\nmodule.exports = User;\n\n\n//# sourceURL=webpack:///./db/schemas/user.schema.js?");
+
+/***/ }),
+
+/***/ "./middlewares/authenticate.js":
+/*!*************************************!*\
+  !*** ./middlewares/authenticate.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const passport = __webpack_require__(/*! passport */ \"passport\");\nconst jwt = __webpack_require__(/*! jsonwebtoken */ \"jsonwebtoken\");\nconst ExtractJwt = __webpack_require__(/*! passport-jwt */ \"passport-jwt\").ExtractJwt;\n\nconst { UserModel } = __webpack_require__(/*! ../db/db.module */ \"./db/db.module.js\");\n\n// Мидлвер првоерки авторизации и обновления токена\nmodule.exports = () => {\n  return async (req, res, next) => {\n    const accessToken = ExtractJwt.fromAuthHeaderWithScheme('Bearer')(req);\n    const refreshToken = req.headers.refresh_token;\n\n    try {\n      const verifiedAccessToken = jwt.verify(accessToken, 'secret');\n      const userId = verifiedAccessToken._id;\n\n      const newRefreshToken = jwt.sign({ _id: userId }, 'secret', {\n        expiresIn: '1h'\n      });\n\n      const updateUser = await UserModel.findByIdAndUpdate(userId, {\n        $set: { refreshToken: newRefreshToken }\n      }).exec();\n\n      res.append('refresh_token', newRefreshToken);\n      next();\n    } catch (e) {\n      const decodedRefreshToken = jwt.decode(refreshToken, 'secret');\n      const userId = decodedRefreshToken._id;\n\n      const user = await UserModel.findById(userId);\n      const userRefreshToken = user.refreshToken;\n\n      if (refreshToken !== userRefreshToken) {\n        return res.status(401).json({ message: 'Вы не авторизованы' });\n      }\n\n      const newAccessToken = jwt.sign({ _id: userId }, 'secret', {\n        expiresIn: '1m'\n      });\n      const newRefreshToken = jwt.sign({ _id: userId }, 'secret', {\n        expiresIn: '1h'\n      });\n\n      const updateUser = await UserModel.findByIdAndUpdate(userId, {\n        $set: { refreshToken: newRefreshToken }\n      }).exec();\n\n      res.append('access_token', newAccessToken);\n      res.append('refresh_token', newRefreshToken);\n\n      return next();\n    }\n  };\n};\n\n\n//# sourceURL=webpack:///./middlewares/authenticate.js?");
+
+/***/ }),
+
+/***/ "./middlewares/userBodyValidator.js":
+/*!******************************************!*\
+  !*** ./middlewares/userBodyValidator.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const classValidator = __webpack_require__(/*! class-validator */ \"class-validator\");\n\nmodule.exports = (req, res, next) => {\n  classValidator.validate('userLocalSchema', req.body).then(errors => {\n    if (errors.length) {\n      const errorsMessages = errors.map(error => {\n        const key = error.property;\n        const messageRaw = error.constraints;\n\n        let message;\n        for (const key in messageRaw) {\n          message = messageRaw[key];\n        }\n\n        return { [key]: message };\n      });\n\n      return res.status(404).json(errorsMessages);\n    }\n\n    next();\n  });\n};\n\n\n//# sourceURL=webpack:///./middlewares/userBodyValidator.js?");
 
 /***/ }),
 
@@ -829,6 +851,17 @@ eval("/* WEBPACK VAR INJECTION */(function(__resourceQuery) {/*\n\tMIT License h
 
 /***/ }),
 
+/***/ "./passport/local.js":
+/*!***************************!*\
+  !*** ./passport/local.js ***!
+  \***************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const passport = __webpack_require__(/*! passport */ \"passport\");\nconst LocalStrategy = __webpack_require__(/*! passport-local */ \"passport-local\").Strategy;\n\nconst { UserModel } = __webpack_require__(/*! ../db/db.module */ \"./db/db.module.js\");\nconst { generateSalt, generateHashedPassword } = __webpack_require__(/*! ../util/encryption */ \"./util/encryption.js\");\n\npassport.use(\n  'local-signup',\n  new LocalStrategy(\n    { usernameField: 'username', passwordField: 'password' },\n    async (username, password, done) => {\n      if (await UserModel.findOne({ 'local.username': username })) {\n        return done('Already exist', false);\n      }\n\n      try {\n        const salt = generateSalt();\n        const user = new UserModel({\n          method: 'local',\n          role: 'user',\n          local: {\n            username,\n            salt,\n            hashedPassword: generateHashedPassword(salt, password)\n          }\n        });\n\n        await user.save();\n\n        done(null, user);\n      } catch (error) {\n        done(error, false);\n      }\n    }\n  )\n);\n\n\n//# sourceURL=webpack:///./passport/local.js?");
+
+/***/ }),
+
 /***/ "./routes/auth.js":
 /*!************************!*\
   !*** ./routes/auth.js ***!
@@ -836,7 +869,7 @@ eval("/* WEBPACK VAR INJECTION */(function(__resourceQuery) {/*\n\tMIT License h
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("var express = __webpack_require__(/*! express */ \"express\");\nvar router = express.Router();\n\nconst { UserModel } = __webpack_require__(/*! ../db/db.module */ \"./db/db.module.js\");\n\n/* GET home page. */\nrouter.get('/', (req, res, next) => {\n  res.render('index', { title: 'Express' });\n});\n\nmodule.exports = router;\n\n\n//# sourceURL=webpack:///./routes/auth.js?");
+eval("var express = __webpack_require__(/*! express */ \"express\");\nvar router = express.Router();\n\nconst jwt = __webpack_require__(/*! jsonwebtoken */ \"jsonwebtoken\");\nconst passport = __webpack_require__(/*! passport */ \"passport\");\n\nconst { UserModel } = __webpack_require__(/*! ../db/db.module */ \"./db/db.module.js\");\n\nconst bodyValidator = __webpack_require__(/*! ../middlewares/userBodyValidator */ \"./middlewares/userBodyValidator.js\");\n\n/* GET auth. */\nrouter.get('/', (req, res) => {\n  res.render('index', { title: 'Express' });\n});\n\nrouter.post('/signup', bodyValidator, (req, res, next) => {\n  passport.authenticate('local-signup', async (err, user, info) => {\n    if (err === 'Already exist') {\n      return res.status(500).json({ message: 'Пользователь уже существует' });\n    }\n    if (err) {\n      return res.status(500).json({ message: 'Что-то пошло не так =(' });\n    }\n    if (user) {\n      const accessToken = jwt.sign({ _id: user._id }, 'secret', {\n        expiresIn: '1m'\n      });\n      const refreshToken = jwt.sign({ _id: user._id }, 'secret', {\n        expiresIn: '1h'\n      });\n\n      const updateUser = await UserModel.findByIdAndUpdate(user._id, {\n        $set: { refreshToken }\n      }).exec();\n\n      return res.json({ accessToken, refreshToken });\n    }\n  })(req, res, next);\n});\n\nmodule.exports = router;\n\n\n//# sourceURL=webpack:///./routes/auth.js?");
 
 /***/ }),
 
@@ -873,6 +906,39 @@ eval("module.exports = {\"swagger\":\"2.0\",\"info\":{\"version\":\"1.0.0\",\"ti
 
 /***/ }),
 
+/***/ "./util/encryption.js":
+/*!****************************!*\
+  !*** ./util/encryption.js ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const crypto = __webpack_require__(/*! crypto */ \"crypto\");\n\nconst generateSalt = () => {\n  return crypto.randomBytes(128).toString('base64');\n};\n\nconst generateHashedPassword = (salt, password) => {\n  return crypto\n    .createHmac('sha256', salt)\n    .update(password)\n    .digest('hex');\n};\n\nmodule.exports = {\n\tgenerateSalt,\n\tgenerateHashedPassword\n};\n\n\n//# sourceURL=webpack:///./util/encryption.js?");
+
+/***/ }),
+
+/***/ "./validationSchemas/schemas/userValidation.js":
+/*!*****************************************************!*\
+  !*** ./validationSchemas/schemas/userValidation.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = {\n  name: 'userLocalSchema',\n  properties: {\n    username: [\n      {\n        type: 'isEmail',\n        constraints: [],\n        message: 'Должно быть почтой'\n      }\n    ],\n    password: [\n      {\n        type: 'length',\n        constraints: [6, 20],\n        message: 'Должно быть длинной от 6 до 20'\n      },\n      {\n        type: 'isAlphanumeric',\n        constraints: []\n      }\n    ]\n  }\n};\n\n\n//# sourceURL=webpack:///./validationSchemas/schemas/userValidation.js?");
+
+/***/ }),
+
+/***/ "./validationSchemas/validation.module.js":
+/*!************************************************!*\
+  !*** ./validationSchemas/validation.module.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const classValidator = __webpack_require__(/*! class-validator */ \"class-validator\");\nconst { registerSchema } = classValidator;\n\nconst UserValidationSchema = __webpack_require__(/*! ./schemas/userValidation */ \"./validationSchemas/schemas/userValidation.js\");\n\nregisterSchema(UserValidationSchema);\n\n\n//# sourceURL=webpack:///./validationSchemas/validation.module.js?");
+
+/***/ }),
+
 /***/ 0:
 /*!***********************************************!*\
   !*** multi webpack/hot/poll?100 ./bin/www.js ***!
@@ -881,6 +947,17 @@ eval("module.exports = {\"swagger\":\"2.0\",\"info\":{\"version\":\"1.0.0\",\"ti
 /***/ (function(module, exports, __webpack_require__) {
 
 eval("__webpack_require__(/*! webpack/hot/poll?100 */\"./node_modules/webpack/hot/poll.js?100\");\nmodule.exports = __webpack_require__(/*! ./bin/www.js */\"./bin/www.js\");\n\n\n//# sourceURL=webpack:///multi_webpack/hot/poll?");
+
+/***/ }),
+
+/***/ "class-validator":
+/*!**********************************!*\
+  !*** external "class-validator" ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"class-validator\");\n\n//# sourceURL=webpack:///external_%22class-validator%22?");
 
 /***/ }),
 
@@ -903,6 +980,17 @@ eval("module.exports = require(\"compression\");\n\n//# sourceURL=webpack:///ext
 /***/ (function(module, exports) {
 
 eval("module.exports = require(\"cookie-parser\");\n\n//# sourceURL=webpack:///external_%22cookie-parser%22?");
+
+/***/ }),
+
+/***/ "crypto":
+/*!*************************!*\
+  !*** external "crypto" ***!
+  \*************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"crypto\");\n\n//# sourceURL=webpack:///external_%22crypto%22?");
 
 /***/ }),
 
@@ -939,6 +1027,17 @@ eval("module.exports = require(\"http\");\n\n//# sourceURL=webpack:///external_%
 
 /***/ }),
 
+/***/ "jsonwebtoken":
+/*!*******************************!*\
+  !*** external "jsonwebtoken" ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"jsonwebtoken\");\n\n//# sourceURL=webpack:///external_%22jsonwebtoken%22?");
+
+/***/ }),
+
 /***/ "mongoose":
 /*!***************************!*\
   !*** external "mongoose" ***!
@@ -958,6 +1057,39 @@ eval("module.exports = require(\"mongoose\");\n\n//# sourceURL=webpack:///extern
 /***/ (function(module, exports) {
 
 eval("module.exports = require(\"morgan\");\n\n//# sourceURL=webpack:///external_%22morgan%22?");
+
+/***/ }),
+
+/***/ "passport":
+/*!***************************!*\
+  !*** external "passport" ***!
+  \***************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"passport\");\n\n//# sourceURL=webpack:///external_%22passport%22?");
+
+/***/ }),
+
+/***/ "passport-jwt":
+/*!*******************************!*\
+  !*** external "passport-jwt" ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"passport-jwt\");\n\n//# sourceURL=webpack:///external_%22passport-jwt%22?");
+
+/***/ }),
+
+/***/ "passport-local":
+/*!*********************************!*\
+  !*** external "passport-local" ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"passport-local\");\n\n//# sourceURL=webpack:///external_%22passport-local%22?");
 
 /***/ }),
 

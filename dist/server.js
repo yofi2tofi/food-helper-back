@@ -22,7 +22,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "fcc171af4fa5b9d82ac0";
+/******/ 	var hotCurrentHash = "544f7837acd1ccf81f04";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -759,7 +759,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("/* WEBPACK VAR INJECTION */(function(__dirname) {const express = __webpack_require__(/*! express */ \"express\");\nconst path = __webpack_require__(/*! path */ \"path\");\nconst cookieParser = __webpack_require__(/*! cookie-parser */ \"cookie-parser\");\nconst logger = __webpack_require__(/*! morgan */ \"morgan\");\nconst compression = __webpack_require__(/*! compression */ \"compression\");\nconst swaggerUi = __webpack_require__(/*! swagger-ui-express */ \"swagger-ui-express\");\nconst passport = __webpack_require__(/*! passport */ \"passport\");\n\nconst swaggerDocument = __webpack_require__(/*! ./swagger.json */ \"./swagger.json\");\n\nconst indexRouter = __webpack_require__(/*! ./routes/index */ \"./routes/index.js\");\nconst usersRouter = __webpack_require__(/*! ./routes/users */ \"./routes/users.js\");\nconst authRouter = __webpack_require__(/*! ./routes/auth */ \"./routes/auth.js\");\n\nconst authenticate = __webpack_require__(/*! ./middlewares/authenticate */ \"./middlewares/authenticate.js\");\n\nconst app = express();\n\n__webpack_require__(/*! ./passport/local */ \"./passport/local.js\");\n\n__webpack_require__(/*! ./validationSchemas/validation.module */ \"./validationSchemas/validation.module.js\");\n\napp.use(logger('dev'));\napp.use(express.json());\napp.use(express.urlencoded({ extended: false }));\napp.use(cookieParser());\napp.use(express.static(path.join(__dirname, 'public')));\napp.use(compression());\napp.use(passport.initialize());\n\napp.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));\n\napp.use('/api/v1/auth', authRouter);\napp.use('/api/v1/users', authenticate(), usersRouter);\napp.use('*', indexRouter);\n\nmodule.exports = app;\n\n/* WEBPACK VAR INJECTION */}.call(this, \"/\"))\n\n//# sourceURL=webpack:///./app.js?");
+eval("/* WEBPACK VAR INJECTION */(function(__dirname) {const express = __webpack_require__(/*! express */ \"express\");\nconst path = __webpack_require__(/*! path */ \"path\");\nconst cookieParser = __webpack_require__(/*! cookie-parser */ \"cookie-parser\");\nconst logger = __webpack_require__(/*! morgan */ \"morgan\");\nconst compression = __webpack_require__(/*! compression */ \"compression\");\nconst swaggerUi = __webpack_require__(/*! swagger-ui-express */ \"swagger-ui-express\");\nconst passport = __webpack_require__(/*! passport */ \"passport\");\n\nconst swaggerDocument = __webpack_require__(/*! ./swagger.json */ \"./swagger.json\");\n\nconst indexRouter = __webpack_require__(/*! ./routes/index */ \"./routes/index.js\");\nconst usersRouter = __webpack_require__(/*! ./routes/user */ \"./routes/user.js\");\nconst authRouter = __webpack_require__(/*! ./routes/auth */ \"./routes/auth.js\");\n\nconst authenticate = __webpack_require__(/*! ./middlewares/authenticate */ \"./middlewares/authenticate.js\");\n\nconst app = express();\n\n__webpack_require__(/*! ./passport/local */ \"./passport/local.js\");\n__webpack_require__(/*! ./passport/google */ \"./passport/google.js\");\n\n__webpack_require__(/*! ./validationSchemas/validation.module */ \"./validationSchemas/validation.module.js\");\n\napp.use(logger('dev'));\napp.use(express.json());\napp.use(express.urlencoded({ extended: false }));\napp.use(cookieParser());\napp.use(express.static(path.join(__dirname, 'public')));\napp.use(compression());\napp.use(passport.initialize());\n\napp.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));\n\napp.use('/api/v1/auth', authRouter);\napp.use('/api/v1/user', authenticate(), usersRouter);\napp.use('*', authenticate(), indexRouter);\n\nmodule.exports = app;\n\n/* WEBPACK VAR INJECTION */}.call(this, \"/\"))\n\n//# sourceURL=webpack:///./app.js?");
 
 /***/ }),
 
@@ -792,7 +792,7 @@ eval("const mongoose = __webpack_require__(/*! mongoose */ \"mongoose\");\n\ncon
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const mongoose = __webpack_require__(/*! mongoose */ \"mongoose\");\nconst crypto = __webpack_require__(/*! crypto */ \"crypto\");\nconst jwt = __webpack_require__(/*! jsonwebtoken */ \"jsonwebtoken\");\nconst Schema = __webpack_require__(/*! mongoose */ \"mongoose\").Schema;\n\nconst User = new Schema({\n  method: String,\n  roles: {\n    type: String,\n    enum: ['user', 'admin']\n  },\n  local: {\n    username: { type: String, unique: true },\n    salt: String,\n    hashedPassword: String\n  },\n  hash: String,\n  salt: String,\n  refreshToken: String\n});\n\nmodule.exports = User;\n\n\n//# sourceURL=webpack:///./db/schemas/user.schema.js?");
+eval("const mongoose = __webpack_require__(/*! mongoose */ \"mongoose\");\nconst crypto = __webpack_require__(/*! crypto */ \"crypto\");\nconst jwt = __webpack_require__(/*! jsonwebtoken */ \"jsonwebtoken\");\nconst Schema = __webpack_require__(/*! mongoose */ \"mongoose\").Schema;\n\nconst User = new Schema({\n  method: String,\n  roles: {\n    type: String,\n    enum: ['user', 'admin']\n  },\n  local: {\n    username: { type: String, unique: true },\n    salt: String,\n    hashedPassword: String\n  },\n  hash: String,\n  salt: String,\n  refreshToken: String,\n  subId: Number,\n  subs: []\n});\n\nmodule.exports = User;\n\n\n//# sourceURL=webpack:///./db/schemas/user.schema.js?");
 
 /***/ }),
 
@@ -803,7 +803,7 @@ eval("const mongoose = __webpack_require__(/*! mongoose */ \"mongoose\");\nconst
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const passport = __webpack_require__(/*! passport */ \"passport\");\nconst jwt = __webpack_require__(/*! jsonwebtoken */ \"jsonwebtoken\");\nconst ExtractJwt = __webpack_require__(/*! passport-jwt */ \"passport-jwt\").ExtractJwt;\n\nconst { UserModel } = __webpack_require__(/*! ../db/db.module */ \"./db/db.module.js\");\n\n// Мидлвер првоерки авторизации и обновления токена\nmodule.exports = () => {\n  return async (req, res, next) => {\n    const accessToken = ExtractJwt.fromAuthHeaderWithScheme('Bearer')(req);\n    const refreshToken = req.headers.refresh_token;\n\n    try {\n      const verifiedAccessToken = jwt.verify(accessToken, 'secret');\n      const userId = verifiedAccessToken._id;\n\n      const newRefreshToken = jwt.sign({ _id: userId }, 'secret', {\n        expiresIn: '1h'\n      });\n\n      const updateUser = await UserModel.findByIdAndUpdate(userId, {\n        $set: { refreshToken: newRefreshToken }\n      }).exec();\n\n      res.append('refresh_token', newRefreshToken);\n      next();\n    } catch (e) {\n      const decodedRefreshToken = jwt.decode(refreshToken, 'secret');\n      const userId = decodedRefreshToken._id;\n\n      const user = await UserModel.findById(userId);\n      const userRefreshToken = user.refreshToken;\n\n      if (refreshToken !== userRefreshToken) {\n        return res.status(401).json({ message: 'Вы не авторизованы' });\n      }\n\n      const newAccessToken = jwt.sign({ _id: userId }, 'secret', {\n        expiresIn: '1m'\n      });\n      const newRefreshToken = jwt.sign({ _id: userId }, 'secret', {\n        expiresIn: '1h'\n      });\n\n      const updateUser = await UserModel.findByIdAndUpdate(userId, {\n        $set: { refreshToken: newRefreshToken }\n      }).exec();\n\n      res.append('access_token', newAccessToken);\n      res.append('refresh_token', newRefreshToken);\n\n      return next();\n    }\n  };\n};\n\n\n//# sourceURL=webpack:///./middlewares/authenticate.js?");
+eval("const passport = __webpack_require__(/*! passport */ \"passport\");\nconst jwt = __webpack_require__(/*! jsonwebtoken */ \"jsonwebtoken\");\nconst ExtractJwt = __webpack_require__(/*! passport-jwt */ \"passport-jwt\").ExtractJwt;\n\nconst { UserModel } = __webpack_require__(/*! ../db/db.module */ \"./db/db.module.js\");\n\n// Мидлвер првоерки авторизации и обновления токена\nmodule.exports = () => {\n  return async (req, res, next) => {\n    const accessToken = ExtractJwt.fromAuthHeaderWithScheme('Bearer')(req);\n    const refreshToken = req.headers.refresh_token;\n\n    try {\n      const verifiedAccessToken = jwt.verify(accessToken, 'secret');\n      const userId = verifiedAccessToken._id;\n\n      const newRefreshToken = jwt.sign({ _id: userId }, 'secret', {\n        expiresIn: '1h'\n      });\n\n      const updateUser = await UserModel.findByIdAndUpdate(userId, {\n        $set: { refreshToken: newRefreshToken }\n      }).exec();\n\n      res.append('refresh_token', newRefreshToken);\n\n      req.user = updateUser;\n      \n      next();\n    } catch (e) {\n      const decodedRefreshToken = jwt.decode(refreshToken, 'secret');\n      const userId = decodedRefreshToken._id;\n\n      const user = await UserModel.findById(userId);\n      const userRefreshToken = user.refreshToken;\n\n      if (refreshToken !== userRefreshToken) {\n        return res.status(401).json({ message: 'Вы не авторизованы' });\n      }\n\n      const newAccessToken = jwt.sign({ _id: userId }, 'secret', {\n        expiresIn: '1m'\n      });\n      const newRefreshToken = jwt.sign({ _id: userId }, 'secret', {\n        expiresIn: '1h'\n      });\n\n      const updateUser = await UserModel.findByIdAndUpdate(userId, {\n        $set: { refreshToken: newRefreshToken }\n      }).exec();\n\n      res.append('access_token', newAccessToken);\n      res.append('refresh_token', newRefreshToken);\n\n      req.user = updateUser;\n\n      return next();\n    }\n  };\n};\n\n\n//# sourceURL=webpack:///./middlewares/authenticate.js?");
 
 /***/ }),
 
@@ -851,6 +851,17 @@ eval("/* WEBPACK VAR INJECTION */(function(__resourceQuery) {/*\n\tMIT License h
 
 /***/ }),
 
+/***/ "./passport/google.js":
+/*!****************************!*\
+  !*** ./passport/google.js ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const passport = __webpack_require__(/*! passport */ \"passport\");\nconst GoogleTokenStrategy = __webpack_require__(/*! passport-google-token */ \"passport-google-token\").Strategy;\n\npassport.use(\n  new GoogleTokenStrategy(\n    {\n      clientID:\n        '354513618601-ficclon4bei6lniem81rmno751fn8k90.apps.googleusercontent.com',\n      clientSecret: 'dOfP5aZKK4J69IlSFh75vq6r'\n    },\n    function(accessToken, refreshToken, profile, cb) {\n      console.log(accessToken, refreshToken, profile);\n      // User.findOrCreate({ googleId: profile.id }, function (err, user) {\n      //   return cb(err, user);\n      // });\n    }\n  )\n);\n\n\n//# sourceURL=webpack:///./passport/google.js?");
+
+/***/ }),
+
 /***/ "./passport/local.js":
 /*!***************************!*\
   !*** ./passport/local.js ***!
@@ -869,7 +880,7 @@ eval("const passport = __webpack_require__(/*! passport */ \"passport\");\nconst
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("var express = __webpack_require__(/*! express */ \"express\");\nvar router = express.Router();\n\nconst jwt = __webpack_require__(/*! jsonwebtoken */ \"jsonwebtoken\");\nconst passport = __webpack_require__(/*! passport */ \"passport\");\n\nconst { UserModel } = __webpack_require__(/*! ../db/db.module */ \"./db/db.module.js\");\n\nconst bodyValidator = __webpack_require__(/*! ../middlewares/userBodyValidator */ \"./middlewares/userBodyValidator.js\");\n\nrouter.post('/signup', bodyValidator, (req, res, next) => {\n  passport.authenticate('local-signup', async (err, user, info) => {\n    if (err === 'Already exist') {\n      return res.status(500).json({ message: 'Пользователь уже существует' });\n    }\n    if (err) {\n      return res.status(500).json({ message: 'Что-то пошло не так =(' });\n    }\n    if (user) {\n      const accessToken = jwt.sign({ _id: user._id }, 'secret', {\n        expiresIn: '1m'\n      });\n      const refreshToken = jwt.sign({ _id: user._id }, 'secret', {\n        expiresIn: '1h'\n      });\n\n      const updateUser = await UserModel.findByIdAndUpdate(user._id, {\n        $set: { refreshToken }\n      }).exec();\n\n      return res.json({ accessToken, refreshToken });\n    }\n  })(req, res, next);\n});\n\nrouter.post('/signin', bodyValidator, (req, res, next) => {\n  passport.authenticate('local-signin', async (err, user, info) => {\n    if (err === \"User doesn't exist\") {\n      return res.status(400).json({ message: 'Пользователь не существует' });\n    }\n    if (err === 'password is wrong') {\n      return res.status(400).json({ message: 'Пароль не верен' });\n    }\n    if (err) {\n      return res.status(500).json({ message: 'Что-то пошло не так =(' });\n    }\n    if (user) {\n      const accessToken = jwt.sign({ _id: user._id }, 'secret', {\n        expiresIn: '1m'\n      });\n      const refreshToken = jwt.sign({ _id: user._id }, 'secret', {\n        expiresIn: '1h'\n      });\n\n      const updateUser = await UserModel.findByIdAndUpdate(user._id, {\n        $set: { refreshToken }\n      }).exec();\n\n      return res.json({ accessToken, refreshToken });\n    }\n  })(req, res, next);\n});\n\nmodule.exports = router;\n\n\n//# sourceURL=webpack:///./routes/auth.js?");
+eval("var express = __webpack_require__(/*! express */ \"express\");\nvar router = express.Router();\n\nconst jwt = __webpack_require__(/*! jsonwebtoken */ \"jsonwebtoken\");\nconst passport = __webpack_require__(/*! passport */ \"passport\");\n\nconst { UserModel } = __webpack_require__(/*! ../db/db.module */ \"./db/db.module.js\");\n\nconst bodyValidator = __webpack_require__(/*! ../middlewares/userBodyValidator */ \"./middlewares/userBodyValidator.js\");\n\nrouter.post('/signup', bodyValidator, (req, res, next) => {\n  passport.authenticate('local-signup', async (err, user, info) => {\n    if (err === 'Already exist') {\n      return res.status(500).json({ message: 'Пользователь уже существует' });\n    }\n    if (err) {\n      return res.status(500).json({ message: 'Что-то пошло не так =(' });\n    }\n    if (user) {\n      const accessToken = jwt.sign({ _id: user._id }, 'secret', {\n        expiresIn: '1m'\n      });\n      const refreshToken = jwt.sign({ _id: user._id }, 'secret', {\n        expiresIn: '1h'\n      });\n\n      const updateUser = await UserModel.findByIdAndUpdate(user._id, {\n        $set: { refreshToken }\n      }).exec();\n\n      return res.json({ accessToken, refreshToken });\n    }\n  })(req, res, next);\n});\n\nrouter.post('/signin', bodyValidator, (req, res, next) => {\n  passport.authenticate('local-signin', async (err, user, info) => {\n    if (err === \"User doesn't exist\") {\n      return res.status(400).json({ message: 'Пользователь не существует' });\n    }\n    if (err === 'password is wrong') {\n      return res.status(400).json({ message: 'Пароль не верен' });\n    }\n    if (err) {\n      return res.status(500).json({ message: 'Что-то пошло не так =(' });\n    }\n    if (user) {\n      const accessToken = jwt.sign({ _id: user._id }, 'secret', {\n        expiresIn: '1m'\n      });\n      const refreshToken = jwt.sign({ _id: user._id }, 'secret', {\n        expiresIn: '1h'\n      });\n\n      const updateUser = await UserModel.findByIdAndUpdate(user._id, {\n        $set: { refreshToken }\n      }).exec();\n\n      return res.json({ accessToken, refreshToken });\n    }\n  })(req, res, next);\n});\n\nrouter.get(\n  '/google',\n  passport.authenticate('google-token', { session: false }),\n  function(req, res) {\n    res.send(req.user);\n  }\n);\n\n// router.get('/google/callback', passport.authenticate('google-token'), function(\n//   req,\n//   res\n// ) {\n//   // res.redirect('/');\n// });\n\nmodule.exports = router;\n\n\n//# sourceURL=webpack:///./routes/auth.js?");
 
 /***/ }),
 
@@ -880,18 +891,18 @@ eval("var express = __webpack_require__(/*! express */ \"express\");\nvar router
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("var express = __webpack_require__(/*! express */ \"express\");\nvar router = express.Router();\n\n/* GET 404 status. */\nrouter.get('/', function(req, res, next) {\n  res.status(404).json({ message: 'Что-то пошло не так =(' });\n});\n\nmodule.exports = router;\n\n\n//# sourceURL=webpack:///./routes/index.js?");
+eval("var express = __webpack_require__(/*! express */ \"express\");\nvar router = express.Router();\n\n/* GET 404 status. */\nrouter.get('/user', function(req, res, next) {\n  res.json({ message: 'user' });\n});\n\nmodule.exports = router;\n\n\n//# sourceURL=webpack:///./routes/index.js?");
 
 /***/ }),
 
-/***/ "./routes/users.js":
-/*!*************************!*\
-  !*** ./routes/users.js ***!
-  \*************************/
+/***/ "./routes/user.js":
+/*!************************!*\
+  !*** ./routes/user.js ***!
+  \************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("var express = __webpack_require__(/*! express */ \"express\");\nvar router = express.Router();\n\n/* GET users listing. */\nrouter.get('/', function(req, res, next) {\n  res.send('respond with a resource');\n});\n\nmodule.exports = router;\n\n\n//# sourceURL=webpack:///./routes/users.js?");
+eval("var express = __webpack_require__(/*! express */ \"express\");\nvar router = express.Router();\n\n/* GET users listing. */\nrouter.get('/', (req, res, next) => {\n  res.json(req.user);\n});\n\nmodule.exports = router;\n\n\n//# sourceURL=webpack:///./routes/user.js?");
 
 /***/ }),
 
@@ -1068,6 +1079,17 @@ eval("module.exports = require(\"morgan\");\n\n//# sourceURL=webpack:///external
 /***/ (function(module, exports) {
 
 eval("module.exports = require(\"passport\");\n\n//# sourceURL=webpack:///external_%22passport%22?");
+
+/***/ }),
+
+/***/ "passport-google-token":
+/*!****************************************!*\
+  !*** external "passport-google-token" ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"passport-google-token\");\n\n//# sourceURL=webpack:///external_%22passport-google-token%22?");
 
 /***/ }),
 

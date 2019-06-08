@@ -61,4 +61,19 @@ router.post('/signin', bodyValidator, (req, res, next) => {
   })(req, res, next);
 });
 
+router.get(
+  '/google',
+  passport.authenticate('google-token', { session: false }),
+  function(req, res) {
+    res.send(req.user);
+  }
+);
+
+// router.get('/google/callback', passport.authenticate('google-token'), function(
+//   req,
+//   res
+// ) {
+//   // res.redirect('/');
+// });
+
 module.exports = router;

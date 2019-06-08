@@ -23,6 +23,9 @@ module.exports = () => {
       }).exec();
 
       res.append('refresh_token', newRefreshToken);
+
+      req.user = updateUser;
+      
       next();
     } catch (e) {
       const decodedRefreshToken = jwt.decode(refreshToken, 'secret');
@@ -48,6 +51,8 @@ module.exports = () => {
 
       res.append('access_token', newAccessToken);
       res.append('refresh_token', newRefreshToken);
+
+      req.user = updateUser;
 
       return next();
     }

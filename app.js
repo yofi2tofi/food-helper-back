@@ -9,7 +9,7 @@ const passport = require('passport');
 const swaggerDocument = require('./swagger.json');
 
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+const usersRouter = require('./routes/user');
 const authRouter = require('./routes/auth');
 
 const authenticate = require('./middlewares/authenticate');
@@ -17,6 +17,7 @@ const authenticate = require('./middlewares/authenticate');
 const app = express();
 
 require('./passport/local');
+require('./passport/google');
 
 require('./validationSchemas/validation.module');
 
@@ -31,7 +32,7 @@ app.use(passport.initialize());
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use('/api/v1/auth', authRouter);
-app.use('/api/v1/users', authenticate(), usersRouter);
-app.use('*', indexRouter);
+app.use('/api/v1/user', authenticate(), usersRouter);
+app.use('*', authenticate(), indexRouter);
 
 module.exports = app;

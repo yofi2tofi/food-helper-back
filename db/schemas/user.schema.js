@@ -16,7 +16,9 @@ const User = new Schema({
   },
   hash: String,
   salt: String,
-  refreshToken: String
+  refreshToken: String,
+  subId: Number,
+  subs: []
 });
 
 module.exports = User;

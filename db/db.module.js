@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 
 const User = require('./schemas/user.schema');
+const Dish = require('./schemas/dish.schema');
+const Ingredient = require('./schemas/ingredient.schema');
 
 const dbConfigUrl =
   process.env.NODE_ENV === 'development'
@@ -19,7 +21,11 @@ db.once('open', function callback() {
 });
 
 const UserModel = mongoose.model('User', User);
+const DishModel = mongoose.model('Dish', Dish);
+const IngredientModel = mongoose.model('Ingredient', Ingredient);
 
 module.exports = {
-  UserModel: UserModel
+  UserModel: UserModel,
+  DishModel: DishModel,
+  IngredientModel: IngredientModel
 };

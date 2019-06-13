@@ -22,7 +22,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "544f7837acd1ccf81f04";
+/******/ 	var hotCurrentHash = "7c1e1517a3e3140f5c72";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -759,7 +759,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("/* WEBPACK VAR INJECTION */(function(__dirname) {const express = __webpack_require__(/*! express */ \"express\");\nconst path = __webpack_require__(/*! path */ \"path\");\nconst cookieParser = __webpack_require__(/*! cookie-parser */ \"cookie-parser\");\nconst logger = __webpack_require__(/*! morgan */ \"morgan\");\nconst compression = __webpack_require__(/*! compression */ \"compression\");\nconst swaggerUi = __webpack_require__(/*! swagger-ui-express */ \"swagger-ui-express\");\nconst passport = __webpack_require__(/*! passport */ \"passport\");\n\nconst swaggerDocument = __webpack_require__(/*! ./swagger.json */ \"./swagger.json\");\n\nconst indexRouter = __webpack_require__(/*! ./routes/index */ \"./routes/index.js\");\nconst usersRouter = __webpack_require__(/*! ./routes/user */ \"./routes/user.js\");\nconst authRouter = __webpack_require__(/*! ./routes/auth */ \"./routes/auth.js\");\n\nconst authenticate = __webpack_require__(/*! ./middlewares/authenticate */ \"./middlewares/authenticate.js\");\n\nconst app = express();\n\n__webpack_require__(/*! ./passport/local */ \"./passport/local.js\");\n__webpack_require__(/*! ./passport/google */ \"./passport/google.js\");\n\n__webpack_require__(/*! ./validationSchemas/validation.module */ \"./validationSchemas/validation.module.js\");\n\napp.use(logger('dev'));\napp.use(express.json());\napp.use(express.urlencoded({ extended: false }));\napp.use(cookieParser());\napp.use(express.static(path.join(__dirname, 'public')));\napp.use(compression());\napp.use(passport.initialize());\n\napp.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));\n\napp.use('/api/v1/auth', authRouter);\napp.use('/api/v1/user', authenticate(), usersRouter);\napp.use('*', authenticate(), indexRouter);\n\nmodule.exports = app;\n\n/* WEBPACK VAR INJECTION */}.call(this, \"/\"))\n\n//# sourceURL=webpack:///./app.js?");
+eval("/* WEBPACK VAR INJECTION */(function(__dirname) {const express = __webpack_require__(/*! express */ \"express\");\nconst path = __webpack_require__(/*! path */ \"path\");\nconst cookieParser = __webpack_require__(/*! cookie-parser */ \"cookie-parser\");\nconst logger = __webpack_require__(/*! morgan */ \"morgan\");\nconst compression = __webpack_require__(/*! compression */ \"compression\");\nconst swaggerUi = __webpack_require__(/*! swagger-ui-express */ \"swagger-ui-express\");\nconst passport = __webpack_require__(/*! passport */ \"passport\");\n\nconst swaggerDocument = __webpack_require__(/*! ./swagger.json */ \"./swagger.json\");\n\nconst indexRouter = __webpack_require__(/*! ./routes/index */ \"./routes/index.js\");\nconst usersRouter = __webpack_require__(/*! ./routes/user */ \"./routes/user.js\");\nconst authRouter = __webpack_require__(/*! ./routes/auth */ \"./routes/auth.js\");\nconst dishRouter = __webpack_require__(/*! ./routes/dish */ \"./routes/dish.js\");\n\nconst authenticate = __webpack_require__(/*! ./middlewares/authenticate */ \"./middlewares/authenticate.js\");\n\nconst app = express();\n\n__webpack_require__(/*! ./passport/local */ \"./passport/local.js\");\n__webpack_require__(/*! ./passport/google */ \"./passport/google.js\");\n\n__webpack_require__(/*! ./validationSchemas/validation.module */ \"./validationSchemas/validation.module.js\");\n\napp.use(logger('dev'));\napp.use(express.json());\napp.use(express.urlencoded({ extended: false }));\napp.use(cookieParser());\napp.use(express.static(path.join(__dirname, 'public')));\napp.use(compression());\napp.use(passport.initialize());\n\napp.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));\n\napp.use('/api/v1/auth', authRouter);\napp.use('/api/v1/user', authenticate(), usersRouter);\napp.use('/api/v1/dish', dishRouter);\napp.use('*', authenticate(), indexRouter);\n\nmodule.exports = app;\n\n/* WEBPACK VAR INJECTION */}.call(this, \"/\"))\n\n//# sourceURL=webpack:///./app.js?");
 
 /***/ }),
 
@@ -781,7 +781,29 @@ eval("/**\n * Module dependencies.\n */\n\nvar app = __webpack_require__(/*! ../
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const mongoose = __webpack_require__(/*! mongoose */ \"mongoose\");\n\nconst User = __webpack_require__(/*! ./schemas/user.schema */ \"./db/schemas/user.schema.js\");\n\nconst dbConfigUrl =\n   true\n    ? 'mongodb://yofi2tofi:ABF71824178907@ds263876.mlab.com:63876/food-helper-test'\n    : undefined;\n\nmongoose.connect(dbConfigUrl);\nvar db = mongoose.connection;\n\ndb.on('error', function(err) {\n  console.log('connection error:', err.message);\n});\n\ndb.once('open', function callback() {\n  console.log('Connected to DB!');\n});\n\nconst UserModel = mongoose.model('User', User);\n\nmodule.exports = {\n  UserModel: UserModel\n};\n\n\n//# sourceURL=webpack:///./db/db.module.js?");
+eval("const mongoose = __webpack_require__(/*! mongoose */ \"mongoose\");\n\nconst User = __webpack_require__(/*! ./schemas/user.schema */ \"./db/schemas/user.schema.js\");\nconst Dish = __webpack_require__(/*! ./schemas/dish.schema */ \"./db/schemas/dish.schema.js\");\nconst Ingredient = __webpack_require__(/*! ./schemas/ingredient.schema */ \"./db/schemas/ingredient.schema.js\");\n\nconst dbConfigUrl =\n   true\n    ? 'mongodb://yofi2tofi:ABF71824178907@ds263876.mlab.com:63876/food-helper-test'\n    : undefined;\n\nmongoose.connect(dbConfigUrl);\nvar db = mongoose.connection;\n\ndb.on('error', function(err) {\n  console.log('connection error:', err.message);\n});\n\ndb.once('open', function callback() {\n  console.log('Connected to DB!');\n});\n\nconst UserModel = mongoose.model('User', User);\nconst DishModel = mongoose.model('Dish', Dish);\nconst IngredientModel = mongoose.model('Ingredient', Ingredient);\n\nmodule.exports = {\n  UserModel: UserModel,\n  DishModel: DishModel,\n  IngredientModel: IngredientModel\n};\n\n\n//# sourceURL=webpack:///./db/db.module.js?");
+
+/***/ }),
+
+/***/ "./db/schemas/dish.schema.js":
+/*!***********************************!*\
+  !*** ./db/schemas/dish.schema.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const mongoose = __webpack_require__(/*! mongoose */ \"mongoose\");\nconst Schema = __webpack_require__(/*! mongoose */ \"mongoose\").Schema;\n\nconst Dish = new Schema({\n  time: Number,\n  title: String,\n  authorId: {\n    type: Schema.Types.ObjectId,\n    ref: 'User'\n  },\n  coverImgUrl: String,\n  photos: {\n    type: Array\n  },\n  videoUrl: String,\n  complexity: Number,\n  recipe: String,\n  ingredients: [\n    {\n      type: Schema.Types.ObjectId,\n      ref: 'Ingredient'\n    }\n  ],\n  description: String,\n  price: Number,\n  proteins: Number,\n  fats: Number,\n  carbohydrates: Number,\n  minutes: Number\n});\n\nmodule.exports = Dish;\n\n\n//# sourceURL=webpack:///./db/schemas/dish.schema.js?");
+
+/***/ }),
+
+/***/ "./db/schemas/ingredient.schema.js":
+/*!*****************************************!*\
+  !*** ./db/schemas/ingredient.schema.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const mongoose = __webpack_require__(/*! mongoose */ \"mongoose\");\nconst Schema = __webpack_require__(/*! mongoose */ \"mongoose\").Schema;\n\nconst Ingredient = new Schema({\n  title: String,\n  measure: String,\n  energyValue: {\n    calories: Number,\n    carbs: Number,\n    fats: Number,\n    protein: Number\n  }\n});\n\nmodule.exports = Ingredient;\n\n\n//# sourceURL=webpack:///./db/schemas/ingredient.schema.js?");
 
 /***/ }),
 
@@ -881,6 +903,17 @@ eval("const passport = __webpack_require__(/*! passport */ \"passport\");\nconst
 /***/ (function(module, exports, __webpack_require__) {
 
 eval("var express = __webpack_require__(/*! express */ \"express\");\nvar router = express.Router();\n\nconst jwt = __webpack_require__(/*! jsonwebtoken */ \"jsonwebtoken\");\nconst passport = __webpack_require__(/*! passport */ \"passport\");\n\nconst { UserModel } = __webpack_require__(/*! ../db/db.module */ \"./db/db.module.js\");\n\nconst bodyValidator = __webpack_require__(/*! ../middlewares/userBodyValidator */ \"./middlewares/userBodyValidator.js\");\n\nrouter.post('/signup', bodyValidator, (req, res, next) => {\n  passport.authenticate('local-signup', async (err, user, info) => {\n    if (err === 'Already exist') {\n      return res.status(500).json({ message: 'Пользователь уже существует' });\n    }\n    if (err) {\n      return res.status(500).json({ message: 'Что-то пошло не так =(' });\n    }\n    if (user) {\n      const accessToken = jwt.sign({ _id: user._id }, 'secret', {\n        expiresIn: '1m'\n      });\n      const refreshToken = jwt.sign({ _id: user._id }, 'secret', {\n        expiresIn: '1h'\n      });\n\n      const updateUser = await UserModel.findByIdAndUpdate(user._id, {\n        $set: { refreshToken }\n      }).exec();\n\n      return res.json({ accessToken, refreshToken });\n    }\n  })(req, res, next);\n});\n\nrouter.post('/signin', bodyValidator, (req, res, next) => {\n  passport.authenticate('local-signin', async (err, user, info) => {\n    if (err === \"User doesn't exist\") {\n      return res.status(400).json({ message: 'Пользователь не существует' });\n    }\n    if (err === 'password is wrong') {\n      return res.status(400).json({ message: 'Пароль не верен' });\n    }\n    if (err) {\n      return res.status(500).json({ message: 'Что-то пошло не так =(' });\n    }\n    if (user) {\n      const accessToken = jwt.sign({ _id: user._id }, 'secret', {\n        expiresIn: '1m'\n      });\n      const refreshToken = jwt.sign({ _id: user._id }, 'secret', {\n        expiresIn: '1h'\n      });\n\n      const updateUser = await UserModel.findByIdAndUpdate(user._id, {\n        $set: { refreshToken }\n      }).exec();\n\n      return res.json({ accessToken, refreshToken });\n    }\n  })(req, res, next);\n});\n\nrouter.get(\n  '/google',\n  passport.authenticate('google-token', { session: false }),\n  function(req, res) {\n    res.send(req.user);\n  }\n);\n\n// router.get('/google/callback', passport.authenticate('google-token'), function(\n//   req,\n//   res\n// ) {\n//   // res.redirect('/');\n// });\n\nmodule.exports = router;\n\n\n//# sourceURL=webpack:///./routes/auth.js?");
+
+/***/ }),
+
+/***/ "./routes/dish.js":
+/*!************************!*\
+  !*** ./routes/dish.js ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const express = __webpack_require__(/*! express */ \"express\");\nconst router = express.Router();\n\nconst { DishModel } = __webpack_require__(/*! ../db/db.module */ \"./db/db.module.js\");\n\nrouter.get('/', async (req, res, next) => {\n  try {\n    const params = {\n      tags: req.query.tags,\n      authorId: req.query.authorId,\n      favorite: req.query.favorite\n    };\n\n    const dishes = await DishModel.find(params)\n      .sort({\n        [req.query.sortBy]: req.query.sortType\n      })\n      .skip()\n      .limit()\n      .exec();\n\n    return res.json({\n      data: dishes,\n      meta: {\n        limit: req.query.limit,\n        offset: req.query.offset\n      }\n    });\n  } catch (e) {\n    return res.status(500).json({ message: 'Что-то пошло не так =(' });\n  }\n});\n\nmodule.exports = router;\n\n\n//# sourceURL=webpack:///./routes/dish.js?");
 
 /***/ }),
 

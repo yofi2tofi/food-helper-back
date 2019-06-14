@@ -13,16 +13,11 @@ module.exports = {
         type: 'length',
         constraints: [3, 30],
         message: 'Должно быть длинной от 3 до 30'
-      },
-      {
-        type: 'IsAlpha',
-        constraints: [],
-        message: 'Название должно состоять только из букв'
       }
     ],
     authorId: [
       {
-        type: 'isNumber',
+        type: 'isMongoId',
         constraints: [],
         message: 'У блюда должен быть автор'
       }
@@ -55,7 +50,7 @@ module.exports = {
       {
         type: 'isString',
         constraints: [],
-        message: 'У блюда должна быть обложка'
+        message: 'У блюда должна быть видео-обложка'
       }
     ],
     complexity: [

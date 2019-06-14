@@ -21,6 +21,7 @@ const Dish = new Schema({
       ref: 'Ingredient'
     }
   ],
+  tags: [],
   description: String,
   price: Number,
   proteins: Number,

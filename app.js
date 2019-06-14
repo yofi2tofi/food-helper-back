@@ -34,7 +34,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/user', authenticate(), usersRouter);
-app.use('/api/v1/dish', dishRouter);
+app.use('/api/v1/dish', authenticate(), dishRouter);
 app.use('*', authenticate(), indexRouter);
 
 module.exports = app;

@@ -22,7 +22,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "7c1e1517a3e3140f5c72";
+/******/ 	var hotCurrentHash = "eadcee1224287349d0d4";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -836,7 +836,7 @@ eval("const passport = __webpack_require__(/*! passport */ \"passport\");\nconst
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const classValidator = __webpack_require__(/*! class-validator */ \"class-validator\");\n\nmodule.exports = (req, res, next) => {\n  classValidator.validate('userLocalSchema', req.body).then(errors => {\n    if (errors.length) {\n      const errorsMessages = errors.map(error => {\n        const key = error.property;\n        const messageRaw = error.constraints;\n\n        let message;\n        for (const key in messageRaw) {\n          message = messageRaw[key];\n        }\n\n        return { [key]: message };\n      });\n\n      return res.status(404).json(errorsMessages);\n    }\n\n    next();\n  });\n};\n\n\n//# sourceURL=webpack:///./middlewares/userBodyValidator.js?");
+eval("const classValidator = __webpack_require__(/*! class-validator */ \"class-validator\");\n\nmodule.exports = (req, res, next) => {\n  classValidator\n    .validate('userLocalSchema', req.body, {\n      whitelist: true,\n      forbidNonWhitelisted: true\n    })\n    .then(errors => {\n      if (errors.length) {\n        const errorsMessages = errors.map(error => {\n          const key = error.property;\n          const messageRaw = error.constraints;\n\n          let message;\n          for (const key in messageRaw) {\n            message = messageRaw[key];\n          }\n\n          return { [key]: message };\n        });\n\n        return res.status(404).json(errorsMessages);\n      }\n\n      next();\n    });\n};\n\n\n//# sourceURL=webpack:///./middlewares/userBodyValidator.js?");
 
 /***/ }),
 
@@ -961,14 +961,14 @@ eval("const crypto = __webpack_require__(/*! crypto */ \"crypto\");\n\nconst gen
 
 /***/ }),
 
-/***/ "./validationSchemas/schemas/userValidation.js":
-/*!*****************************************************!*\
-  !*** ./validationSchemas/schemas/userValidation.js ***!
-  \*****************************************************/
+/***/ "./validationSchemas/schemas/user.validation.js":
+/*!******************************************************!*\
+  !*** ./validationSchemas/schemas/user.validation.js ***!
+  \******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("module.exports = {\n  name: 'userLocalSchema',\n  properties: {\n    username: [\n      {\n        type: 'isEmail',\n        constraints: [],\n        message: 'Должно быть почтой'\n      }\n    ],\n    password: [\n      {\n        type: 'length',\n        constraints: [6, 20],\n        message: 'Должно быть длинной от 6 до 20'\n      },\n      {\n        type: 'isAlphanumeric',\n        constraints: []\n      }\n    ]\n  }\n};\n\n\n//# sourceURL=webpack:///./validationSchemas/schemas/userValidation.js?");
+eval("module.exports = {\n  name: 'userLocalSchema',\n  properties: {\n    username: [\n      {\n        type: 'isEmail',\n        constraints: [],\n        message: 'Должно быть почтой'\n      }\n    ],\n    password: [\n      {\n        type: 'length',\n        constraints: [6, 20],\n        message: 'Должно быть длинной от 6 до 20'\n      },\n      {\n        type: 'isAlphanumeric',\n        constraints: [],\n        message: 'Пароль должен содержать буквы и цифры'\n      }\n    ]\n  }\n};\n\n\n//# sourceURL=webpack:///./validationSchemas/schemas/user.validation.js?");
 
 /***/ }),
 
@@ -979,7 +979,7 @@ eval("module.exports = {\n  name: 'userLocalSchema',\n  properties: {\n    usern
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const classValidator = __webpack_require__(/*! class-validator */ \"class-validator\");\nconst { registerSchema } = classValidator;\n\nconst UserValidationSchema = __webpack_require__(/*! ./schemas/userValidation */ \"./validationSchemas/schemas/userValidation.js\");\n\nregisterSchema(UserValidationSchema);\n\n\n//# sourceURL=webpack:///./validationSchemas/validation.module.js?");
+eval("const classValidator = __webpack_require__(/*! class-validator */ \"class-validator\");\nconst { registerSchema } = classValidator;\n\nconst UserValidationSchema = __webpack_require__(/*! ./schemas/user.validation */ \"./validationSchemas/schemas/user.validation.js\");\n\nregisterSchema(UserValidationSchema);\n\n\n//# sourceURL=webpack:///./validationSchemas/validation.module.js?");
 
 /***/ }),
 

@@ -16,7 +16,8 @@ module.exports = {
       },
       {
         type: 'isAlphanumeric',
-        constraints: []
+        constraints: [],
+        message: 'Пароль должен содержать буквы и цифры'
       }
     ]
   }

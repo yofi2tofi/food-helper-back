@@ -92,10 +92,12 @@ router.put('/:id', dishValidator, async (req, res, next) => {
     }
 
     await DishModel.findByIdAndUpdate(id, req.body).exec();
-    dish = await DishModel.findById(id, '-__v').populate({
-      path: 'authorId',
-      select: '_id'
-    });
+    dish = await DishModel.findById(id, '-__v')
+      .populate({
+        path: 'authorId',
+        select: '_id'
+      })
+      .exec();
 
     return res.json({
       data: dish,

@@ -12,6 +12,7 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/user');
 const authRouter = require('./routes/auth');
 const dishRouter = require('./routes/dish');
+const ingredientRouter = require('./routes/ingredients');
 
 const authenticate = require('./middlewares/authenticate');
 
@@ -35,6 +36,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/user', authenticate(), usersRouter);
 app.use('/api/v1/dish', authenticate(), dishRouter);
+app.use('/api/v1/ingredient', authenticate(), ingredientRouter);
 app.use('*', authenticate(), indexRouter);
 
 module.exports = app;

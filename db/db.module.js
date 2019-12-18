@@ -7,7 +7,7 @@ const Category = require('./schemas/category.schema');
 
 const dbConfigUrl =
   process.env.NODE_ENV === 'development'
-    ? 'mongodb://yofi2tofi:ABF71824178907@ds263876.mlab.com:63876/food-helper-test'
+    ? ''
     : '';
 
 mongoose.connect(dbConfigUrl);
